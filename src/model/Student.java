@@ -15,7 +15,8 @@ public class Student {
     }
 
     // Parameterized Constructor
-    public Student(int student_ID, String student_Name, String Email_ID, String contact_no, String branch, int semester, double cgpa) {
+    public Student(int student_ID, String student_Name, String Email_ID,
+                   String contact_no, String branch, int semester, double cgpa) {
         this.student_ID = student_ID;
         this.student_Name = student_Name;
         this.Email_ID = Email_ID;
@@ -81,5 +82,13 @@ public class Student {
 
     public void setCgpa(double cgpa) {
         this.cgpa = cgpa;
+    }
+
+
+    // toString for clean output
+    @Override
+    public String toString() {
+        return student_ID + " | " + student_Name + " | " + Email_ID + " | " +
+                contact_no + " | " + branch + " | Sem: " + semester + " | CGPA: " + cgpa;
     }
 }

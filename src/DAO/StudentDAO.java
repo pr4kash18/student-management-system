@@ -5,6 +5,9 @@ import db.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentDAO {
 
@@ -31,14 +34,49 @@ public class StudentDAO {
             int rows = ps.executeUpdate();
 
             // confirmation
-            if (rows > 0) {
-                return true;
-            }
+            return rows > 0;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return false;
+    }
+
+
+    public List<Student> getAllStudents() {
+
+        List<Student> students = new ArrayList<>();
+
+        try {
+            Connection con = DBConnection.getConnection();
+
+            String query = "SELECT * FROM students";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Student s = new Student();
+
+                // ⚠️ IMPORTANT: column names consistency
+                s.setStudent_ID(rs.getInt("student_id"));
+                s.setStudent_Name(rs.getString("student_Name"));
+                s.setEmail_ID(rs.getString("Email_ID"));
+                s.setContact_no(rs.getString("contact_no"));
+                s.setBranch(rs.getString("branch"));
+                s.setSemester(rs.getInt("semester"));
+                s.setCgpa(rs.getDouble("cgpa"));
+
+                students.add(s);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return students;
     }
 }

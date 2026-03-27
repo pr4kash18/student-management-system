@@ -2,12 +2,17 @@ package main;
 
 import model.Student;
 import DAO.StudentDAO;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
+        // Insert student part start
+
         Scanner sc = new Scanner(System.in);
+
+
 
         System.out.print("Enter Student Name: ");
         String student_Name = sc.nextLine();
@@ -47,6 +52,32 @@ public class Main {
             System.out.println("Failed to add student ❌");
         }
 
+        //INSERT STUDENT PART END
+
+
+
+
+
+        // VIEW STUDENTS PART START
+
+        System.out.println("\n===== ALL STUDENTS =====");
+
+        List<Student> students = dao.getAllStudents();
+
+        if (students.isEmpty()) {
+            System.out.println("No students found ❌");
+        } else {
+            for (Student stu : students) {
+                System.out.println(stu);
+            }
+        }
+
+        //  VIEW STUDENTS PART END
+
         sc.close();
+
+
+
+
     }
 }
