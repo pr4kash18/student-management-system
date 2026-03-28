@@ -97,7 +97,60 @@ When the program runs, it shows:
 
 ---
 
-## 🙌 Author
+## ⚙️ Setup Instructions
 
-Chandra Prakash Choubisa
-Learning Backend Development by building real projects 🚀
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/pr4kash18/student-management-system.git
+cd student-management-system 
+```
+---
+
+### 2️⃣ Setup MySQL Database
+``` SQL
+CREATE DATABASE student_management_system;
+USE student_management_system;
+```
+---
+
+### 3️⃣ Create Students Table
+``` SQL
+CREATE TABLE students (
+student_id INT AUTO_INCREMENT PRIMARY KEY,
+student_Name VARCHAR(50),
+Email_ID VARCHAR(50),
+contact_no VARCHAR(20),
+branch VARCHAR(20),
+semester INT,
+cgpa DOUBLE
+);
+```
+---
+
+### 4️⃣ Configure Database Connection
+
+Create file: 
+```
+src/config/config.properties
+```
+```
+db.url=jdbc:mysql://localhost:3306/student_management_system
+db.username=root
+db.password=your_password
+```
+---
+
+### 5️⃣ Run the Application
+
+### Run 
+```
+Main.java
+```
+---
+
+### ✅ You're Ready!
+
+- Use menu to perform CRUD operations
+- Program runs until Exit is selected
+
+---
