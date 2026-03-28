@@ -11,20 +11,15 @@ import java.util.List;
 
 public class StudentDAO {
 
-
-    // Create
+    // ================= INSERT =================
     public boolean addStudent(Student s) {
         try {
-            // Create connection
             Connection con = DBConnection.getConnection();
 
-            // SQL query
             String query = "INSERT INTO students (student_Name, Email_ID, contact_no, branch, semester, cgpa) VALUES (?, ?, ?, ?, ?, ?)";
 
-            // PreparedStatement
             PreparedStatement ps = con.prepareStatement(query);
 
-            // SET Values
             ps.setString(1, s.getStudent_Name());
             ps.setString(2, s.getEmail_ID());
             ps.setString(3, s.getContact_no());
@@ -32,10 +27,8 @@ public class StudentDAO {
             ps.setInt(5, s.getSemester());
             ps.setDouble(6, s.getCgpa());
 
-            // Execute
             int rows = ps.executeUpdate();
 
-            // confirmation
             return rows > 0;
 
         } catch (Exception e) {
@@ -45,8 +38,7 @@ public class StudentDAO {
         return false;
     }
 
-
-        //View Student / Select all
+    // ================= VIEW =================
     public List<Student> getAllStudents() {
 
         List<Student> students = new ArrayList<>();
@@ -82,9 +74,7 @@ public class StudentDAO {
         return students;
     }
 
-
-
-    //  UPDATE METHOD
+    // ================= UPDATE =================
     public boolean updateStudent(Student s) {
 
         try {
@@ -101,6 +91,29 @@ public class StudentDAO {
             ps.setInt(5, s.getSemester());
             ps.setDouble(6, s.getCgpa());
             ps.setInt(7, s.getStudent_ID());
+
+            int rows = ps.executeUpdate();
+
+            return rows > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    // ================= DELETE =================
+    public boolean deleteStudent(int student_ID) {
+
+        try {
+            Connection con = DBConnection.getConnection();
+
+            String query = "DELETE FROM students WHERE student_id=?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, student_ID);
 
             int rows = ps.executeUpdate();
 

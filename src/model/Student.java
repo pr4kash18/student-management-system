@@ -84,7 +84,6 @@ public class Student {
         this.cgpa = cgpa;
     }
 
-
     // toString for clean output
     @Override
     public String toString() {

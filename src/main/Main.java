@@ -8,9 +8,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        // Insert student part start
-
         Scanner sc = new Scanner(System.in);
+        StudentDAO dao = new StudentDAO();
+
+        // ================= INSERT =================
 
         System.out.print("Enter Student Name: ");
         String student_Name = sc.nextLine();
@@ -30,7 +31,6 @@ public class Main {
         System.out.print("Enter CGPA: ");
         double cgpa = sc.nextDouble();
 
-        // Create Student object
         Student s = new Student();
         s.setStudent_Name(student_Name);
         s.setEmail_ID(Email_ID);
@@ -39,21 +39,15 @@ public class Main {
         s.setSemester(semester);
         s.setCgpa(cgpa);
 
-        // DAO call
-        StudentDAO dao = new StudentDAO();
         boolean result = dao.addStudent(s);
 
-        // Output
         if (result) {
             System.out.println("Student added successfully ✅");
         } else {
             System.out.println("Failed to add student ❌");
         }
 
-        // INSERT STUDENT PART END
-
-
-        // VIEW STUDENTS PART START
+        // ================= VIEW =================
 
         System.out.println("\n===== ALL STUDENTS =====");
 
@@ -67,14 +61,11 @@ public class Main {
             }
         }
 
-        // VIEW STUDENTS PART END
-
-
-        // 🔄 UPDATE STUDENT PART START
+        // ================= UPDATE =================
 
         System.out.print("\nEnter Student ID to update: ");
-        int id = sc.nextInt();
-        sc.nextLine(); // ⚠️ important (buffer clear)
+        int updateId = sc.nextInt();
+        sc.nextLine(); // ⚠️ buffer clear
 
         System.out.print("Enter New Name: ");
         String newName = sc.nextLine();
@@ -95,7 +86,7 @@ public class Main {
         double newCgpa = sc.nextDouble();
 
         Student updatedStudent = new Student();
-        updatedStudent.setStudent_ID(id); // 🔥 most important
+        updatedStudent.setStudent_ID(updateId); // 🔥 important
         updatedStudent.setStudent_Name(newName);
         updatedStudent.setEmail_ID(newEmail);
         updatedStudent.setContact_no(newContact);
@@ -111,8 +102,18 @@ public class Main {
             System.out.println("Update failed ❌");
         }
 
-        // 🔄 UPDATE STUDENT PART END
+        // ================= DELETE =================
 
+        System.out.print("\nEnter Student ID to delete: ");
+        int deleteId = sc.nextInt();
+
+        boolean deleteResult = dao.deleteStudent(deleteId);
+
+        if (deleteResult) {
+            System.out.println("Student deleted successfully ✅");
+        } else {
+            System.out.println("Delete failed ❌");
+        }
 
         sc.close();
     }
