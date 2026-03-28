@@ -97,7 +97,4 @@ When the program runs, it shows:
 
 ---
 
-## 🙌 Author
 
-Chandra Prakash Choubisa
-Learning Backend Development by building real projects 🚀
