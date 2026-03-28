@@ -11,6 +11,8 @@ import java.util.List;
 
 public class StudentDAO {
 
+
+    // Create
     public boolean addStudent(Student s) {
         try {
             // Create connection
@@ -44,6 +46,7 @@ public class StudentDAO {
     }
 
 
+        //View Student / Select all
     public List<Student> getAllStudents() {
 
         List<Student> students = new ArrayList<>();
@@ -61,7 +64,6 @@ public class StudentDAO {
 
                 Student s = new Student();
 
-                // ⚠️ IMPORTANT: column names consistency
                 s.setStudent_ID(rs.getInt("student_id"));
                 s.setStudent_Name(rs.getString("student_Name"));
                 s.setEmail_ID(rs.getString("Email_ID"));
@@ -78,5 +80,36 @@ public class StudentDAO {
         }
 
         return students;
+    }
+
+
+
+    //  UPDATE METHOD
+    public boolean updateStudent(Student s) {
+
+        try {
+            Connection con = DBConnection.getConnection();
+
+            String query = "UPDATE students SET student_Name=?, Email_ID=?, contact_no=?, branch=?, semester=?, cgpa=? WHERE student_id=?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setString(1, s.getStudent_Name());
+            ps.setString(2, s.getEmail_ID());
+            ps.setString(3, s.getContact_no());
+            ps.setString(4, s.getBranch());
+            ps.setInt(5, s.getSemester());
+            ps.setDouble(6, s.getCgpa());
+            ps.setInt(7, s.getStudent_ID());
+
+            int rows = ps.executeUpdate();
+
+            return rows > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

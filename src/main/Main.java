@@ -12,8 +12,6 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-
-
         System.out.print("Enter Student Name: ");
         String student_Name = sc.nextLine();
 
@@ -52,10 +50,7 @@ public class Main {
             System.out.println("Failed to add student ❌");
         }
 
-        //INSERT STUDENT PART END
-
-
-
+        // INSERT STUDENT PART END
 
 
         // VIEW STUDENTS PART START
@@ -72,12 +67,53 @@ public class Main {
             }
         }
 
-        //  VIEW STUDENTS PART END
+        // VIEW STUDENTS PART END
+
+
+        // 🔄 UPDATE STUDENT PART START
+
+        System.out.print("\nEnter Student ID to update: ");
+        int id = sc.nextInt();
+        sc.nextLine(); // ⚠️ important (buffer clear)
+
+        System.out.print("Enter New Name: ");
+        String newName = sc.nextLine();
+
+        System.out.print("Enter New Email: ");
+        String newEmail = sc.nextLine();
+
+        System.out.print("Enter New Contact: ");
+        String newContact = sc.nextLine();
+
+        System.out.print("Enter New Branch: ");
+        String newBranch = sc.nextLine();
+
+        System.out.print("Enter New Semester: ");
+        int newSem = sc.nextInt();
+
+        System.out.print("Enter New CGPA: ");
+        double newCgpa = sc.nextDouble();
+
+        Student updatedStudent = new Student();
+        updatedStudent.setStudent_ID(id); // 🔥 most important
+        updatedStudent.setStudent_Name(newName);
+        updatedStudent.setEmail_ID(newEmail);
+        updatedStudent.setContact_no(newContact);
+        updatedStudent.setBranch(newBranch);
+        updatedStudent.setSemester(newSem);
+        updatedStudent.setCgpa(newCgpa);
+
+        boolean updateResult = dao.updateStudent(updatedStudent);
+
+        if (updateResult) {
+            System.out.println("Student updated successfully ✅");
+        } else {
+            System.out.println("Update failed ❌");
+        }
+
+        // 🔄 UPDATE STUDENT PART END
+
 
         sc.close();
-
-
-
-
     }
 }
