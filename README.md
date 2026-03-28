@@ -97,12 +97,13 @@ When the program runs, it shows:
 
 ---
 
+---
 ## ⚙️ Setup Instructions
 
 ### 1️⃣ Clone the Repository
-```bash
+``` bash
 git clone https://github.com/pr4kash18/student-management-system.git
-cd student-management-system 
+cd student-management-system
 ```
 ---
 
@@ -129,10 +130,12 @@ cgpa DOUBLE
 
 ### 4️⃣ Configure Database Connection
 
-Create file: 
+Create file:
 ```
 src/config/config.properties
 ```
+
+### Write Url, Username and Password
 ```
 db.url=jdbc:mysql://localhost:3306/student_management_system
 db.username=root
@@ -141,10 +144,8 @@ db.password=your_password
 ---
 
 ### 5️⃣ Run the Application
-
-### Run 
 ```
-Main.java
+Run Main.java
 ```
 ---
 
