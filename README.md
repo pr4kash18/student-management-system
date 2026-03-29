@@ -1,4 +1,4 @@
-# 🎓 Student Management System (Java + JDBC)
+# 🎓 Student Management System (Java + MySQL)
 
 A console-based Student Management System built using Java, JDBC, MySQL, and DAO pattern.
 This project demonstrates backend fundamentals like database connectivity, CRUD operations, and a menu-driven interface.
