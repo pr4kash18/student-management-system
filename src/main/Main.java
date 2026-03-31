@@ -1,140 +1,180 @@
 package main;
 
-import model.Student;
 import DAO.StudentDAO;
+import DAO.CourseDAO;
+import model.Student;
+import model.Course;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        StudentDAO dao = new StudentDAO();
+        StudentDAO studentDAO = new StudentDAO();
+        CourseDAO courseDAO = new CourseDAO();
 
         while (true) {
 
-            System.out.println("\n===== STUDENT MANAGEMENT SYSTEM =====");
-            System.out.println("1. Add Student");
-            System.out.println("2. View Students");
-            System.out.println("3. Update Student");
-            System.out.println("4. Delete Student");
-            System.out.println("5. Exit");
-            System.out.print("Enter your choice: ");
+            System.out.println("\n===== MAIN MENU =====");
+            System.out.println("1. Manage Students");
+            System.out.println("2. Manage Courses");
+            System.out.println("3. Exit");
+            System.out.print("Enter choice: ");
 
             int choice = sc.nextInt();
-            sc.nextLine(); // buffer clear
+            sc.nextLine();
 
             switch (choice) {
 
+                // ================= STUDENT =================
                 case 1:
-                    // INSERT
-                    System.out.print("Enter Student Name: ");
-                    String name = sc.nextLine();
+                    while (true) {
 
-                    System.out.print("Enter Email ID: ");
-                    String email = sc.nextLine();
+                        System.out.println("\n--- Student Menu ---");
+                        System.out.println("1. Add Student");
+                        System.out.println("2. View Students");
+                        System.out.println("3. Update Student");
+                        System.out.println("4. Delete Student");
+                        System.out.println("5. Back");
 
-                    System.out.print("Enter Contact Number: ");
-                    String contact = sc.nextLine();
+                        int ch = sc.nextInt();
+                        sc.nextLine();
 
-                    System.out.print("Enter Branch: ");
-                    String branch = sc.nextLine();
+                        if (ch == 5) break;
 
-                    System.out.print("Enter Semester: ");
-                    int sem = sc.nextInt();
+                        switch (ch) {
 
-                    System.out.print("Enter CGPA: ");
-                    double cgpa = sc.nextDouble();
+                            case 1:
+                                Student s = new Student();
 
-                    Student s = new Student();
-                    s.setStudent_Name(name);
-                    s.setEmail_ID(email);
-                    s.setContact_no(contact);
-                    s.setBranch(branch);
-                    s.setSemester(sem);
-                    s.setCgpa(cgpa);
+                                System.out.print("Name: ");
+                                s.setStudent_Name(sc.nextLine());
 
-                    if (dao.addStudent(s)) {
-                        System.out.println("Student added successfully ✅");
-                    } else {
-                        System.out.println("Failed ❌");
+                                System.out.print("Email: ");
+                                s.setEmail_ID(sc.nextLine());
+
+                                System.out.print("Contact: ");
+                                s.setContact_no(sc.nextLine());
+
+                                System.out.print("Branch: ");
+                                s.setBranch(sc.nextLine());
+
+                                System.out.print("Semester: ");
+                                s.setSemester(sc.nextInt());
+
+                                System.out.print("CGPA: ");
+                                s.setCgpa(sc.nextDouble());
+
+                                if (studentDAO.addStudent(s))
+                                    System.out.println("Added ✅");
+                                break;
+
+                            case 2:
+                                List<Student> students = studentDAO.getAllStudents();
+                                students.forEach(System.out::println);
+                                break;
+
+                            case 3:
+                                Student us = new Student();
+
+                                System.out.print("ID: ");
+                                us.setStudent_ID(sc.nextInt());
+                                sc.nextLine();
+
+                                System.out.print("New Name: ");
+                                us.setStudent_Name(sc.nextLine());
+
+                                System.out.print("New Email: ");
+                                us.setEmail_ID(sc.nextLine());
+
+                                System.out.print("New Contact: ");
+                                us.setContact_no(sc.nextLine());
+
+                                System.out.print("New Branch: ");
+                                us.setBranch(sc.nextLine());
+
+                                System.out.print("New Semester: ");
+                                us.setSemester(sc.nextInt());
+
+                                System.out.print("New CGPA: ");
+                                us.setCgpa(sc.nextDouble());
+
+                                studentDAO.updateStudent(us);
+                                break;
+
+                            case 4:
+                                System.out.print("ID to delete: ");
+                                studentDAO.deleteStudent(sc.nextInt());
+                                break;
+                        }
                     }
                     break;
 
+                // ================= COURSE =================
                 case 2:
-                    // VIEW
-                    List<Student> students = dao.getAllStudents();
+                    while (true) {
 
-                    if (students.isEmpty()) {
-                        System.out.println("No students found ❌");
-                    } else {
-                        for (Student stu : students) {
-                            System.out.println(stu);
+                        System.out.println("\n--- Course Menu ---");
+                        System.out.println("1. Add Course");
+                        System.out.println("2. View Courses");
+                        System.out.println("3. Update Course");
+                        System.out.println("4. Delete Course");
+                        System.out.println("5. Back");
+
+                        int ch = sc.nextInt();
+                        sc.nextLine();
+
+                        if (ch == 5) break;
+
+                        switch (ch) {
+
+                            case 1:
+                                Course c = new Course();
+
+                                System.out.print("Course Name: ");
+                                c.setCourse_name(sc.nextLine());
+
+                                System.out.print("Semester: ");
+                                c.setCourse_semester(sc.nextInt());
+
+                                courseDAO.addCourse(c);
+                                break;
+
+                            case 2:
+                                List<Course> courses = courseDAO.getAllCourses();
+                                courses.forEach(System.out::println);
+                                break;
+
+                            case 3:
+                                Course uc = new Course();
+
+                                System.out.print("ID: ");
+                                uc.setCourse_id(sc.nextInt());
+                                sc.nextLine();
+
+                                System.out.print("New Name: ");
+                                uc.setCourse_name(sc.nextLine());
+
+                                System.out.print("New Semester: ");
+                                uc.setCourse_semester(sc.nextInt());
+
+                                courseDAO.updateCourse(uc);
+                                break;
+
+                            case 4:
+                                System.out.print("ID to delete: ");
+                                courseDAO.deleteCourse(sc.nextInt());
+                                break;
                         }
                     }
                     break;
 
                 case 3:
-                    // UPDATE
-                    System.out.print("Enter ID to update: ");
-                    int updateId = sc.nextInt();
-                    sc.nextLine();
-
-                    System.out.print("Enter New Name: ");
-                    String newName = sc.nextLine();
-
-                    System.out.print("Enter New Email: ");
-                    String newEmail = sc.nextLine();
-
-                    System.out.print("Enter New Contact: ");
-                    String newContact = sc.nextLine();
-
-                    System.out.print("Enter New Branch: ");
-                    String newBranch = sc.nextLine();
-
-                    System.out.print("Enter New Semester: ");
-                    int newSem = sc.nextInt();
-
-                    System.out.print("Enter New CGPA: ");
-                    double newCgpa = sc.nextDouble();
-
-                    Student updated = new Student();
-                    updated.setStudent_ID(updateId);
-                    updated.setStudent_Name(newName);
-                    updated.setEmail_ID(newEmail);
-                    updated.setContact_no(newContact);
-                    updated.setBranch(newBranch);
-                    updated.setSemester(newSem);
-                    updated.setCgpa(newCgpa);
-
-                    if (dao.updateStudent(updated)) {
-                        System.out.println("Updated successfully ✅");
-                    } else {
-                        System.out.println("Update failed ❌");
-                    }
-                    break;
-
-                case 4:
-                    // DELETE
-                    System.out.print("Enter ID to delete: ");
-                    int deleteId = sc.nextInt();
-
-                    if (dao.deleteStudent(deleteId)) {
-                        System.out.println("Deleted successfully ✅");
-                    } else {
-                        System.out.println("Delete failed ❌");
-                    }
-                    break;
-
-                case 5:
-                    // EXIT
-                    System.out.println("Exiting... 👋");
-                    sc.close();
+                    System.out.println("Exiting...");
                     return;
-
-                default:
-                    System.out.println("Invalid choice ❌");
             }
         }
     }

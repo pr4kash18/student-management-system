@@ -4,22 +4,15 @@ public class Course {
 
     private int course_id;
     private String course_name;
-    private String course_duration;
-    private double course_fee;
+    private int course_semester;
 
-    // Default Constructor
-    public Course() {
-    }
+    public Course() {}
 
-    // Parameterized Constructor
-    public Course(int course_id, String course_name, String course_duration, double course_fee) {
+    public Course(int course_id, String course_name, int course_semester) {
         this.course_id = course_id;
         this.course_name = course_name;
-        this.course_duration = course_duration;
-        this.course_fee = course_fee;
+        this.course_semester = course_semester;
     }
-
-    // Getters and Setters
 
     public int getCourse_id() {
         return course_id;
@@ -37,25 +30,16 @@ public class Course {
         this.course_name = course_name;
     }
 
-    public String getCourse_duration() {
-        return course_duration;
+    public int getCourse_semester() {
+        return course_semester;
     }
 
-    public void setCourse_duration(String course_duration) {
-        this.course_duration = course_duration;
+    public void setCourse_semester(int course_semester) {
+        this.course_semester = course_semester;
     }
 
-    public double getCourse_fee() {
-        return course_fee;
-    }
-
-    public void setCourse_fee(double course_fee) {
-        this.course_fee = course_fee;
-    }
-
-    // toString for clean output
     @Override
     public String toString() {
-        return course_id + " | " + course_name + " | " + course_duration + " | Fee: " + course_fee;
+        return course_id + " | " + course_name + " | Sem: " + course_semester;
     }
 }
