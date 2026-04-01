@@ -2,6 +2,7 @@ package main;
 
 import DAO.StudentDAO;
 import DAO.CourseDAO;
+import DAO.EnrollmentDAO;
 import model.Student;
 import model.Course;
 
@@ -15,13 +16,15 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         StudentDAO studentDAO = new StudentDAO();
         CourseDAO courseDAO = new CourseDAO();
+        EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
 
         while (true) {
 
             System.out.println("\n===== MAIN MENU =====");
             System.out.println("1. Manage Students");
             System.out.println("2. Manage Courses");
-            System.out.println("3. Exit");
+            System.out.println("3. Manage Enrollments");
+            System.out.println("4. Exit");
             System.out.print("Enter choice: ");
 
             int choice = sc.nextInt();
@@ -30,6 +33,7 @@ public class Main {
             switch (choice) {
 
                 // ================= STUDENT =================
+
                 case 1:
                     while (true) {
 
@@ -114,6 +118,7 @@ public class Main {
                     break;
 
                 // ================= COURSE =================
+
                 case 2:
                     while (true) {
 
@@ -172,7 +177,60 @@ public class Main {
                     }
                     break;
 
+                // ================= ENROLLMENT =================
+// ================= ENROLLMENT =================
                 case 3:
+                    while (true) {
+
+                        System.out.println("\n--- Enrollment Menu ---");
+                        System.out.println("1. Enroll Student");
+                        System.out.println("2. View Enrollments");
+                        System.out.println("3. Unenroll Student");
+                        System.out.println("4. Back");
+
+                        int ch = sc.nextInt();
+                        sc.nextLine();
+
+                        if (ch == 4) break;
+
+                        switch (ch) {
+
+                            case 1:
+                                System.out.print("Enter Student ID: ");
+                                int studentId = sc.nextInt();
+
+                                System.out.print("Enter Course ID: ");
+                                int courseId = sc.nextInt();
+
+                                if (enrollmentDAO.enrollStudent(studentId, courseId)) {
+                                    System.out.println("Enrollment Successful ✅");
+                                } else {
+                                    System.out.println("Enrollment Failed ❌");
+                                }
+                                break;
+
+                            case 2:
+                                enrollmentDAO.viewEnrollments();
+                                break;
+
+                            case 3:
+                                System.out.print("Enter Enrollment ID to delete: ");
+                                int enrollId = sc.nextInt();
+
+                                if (enrollmentDAO.deleteEnrollment(enrollId)) {
+                                    System.out.println("Unenrolled Successfully ✅");
+                                } else {
+                                    System.out.println("Unenroll Failed ❌");
+                                }
+                                break;
+
+                            default:
+                                System.out.println("Invalid choice!");
+                        }
+                    }
+                    break;
+
+                case 4:
                     System.out.println("Exiting...");
                     return;
             }
